@@ -35,6 +35,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
+Plug 'elixir-editors/vim-elixir'
 
 call plug#end()
 
