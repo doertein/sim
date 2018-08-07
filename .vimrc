@@ -18,7 +18,6 @@
 
 set nocompatible              " be iMproved, required
 set shell=/bin/bash
-"filetype off                  " required
 
 " vim-plug config
 " auto-installer
@@ -32,10 +31,15 @@ call plug#begin('~/.vim/plugged')
 
 "Plug 'exitface/synthwave.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'elixir-editors/vim-elixir'
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'w0rp/ale'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -55,12 +59,16 @@ call plug#end()
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
-set background=dark
-colorscheme gruvbox
+"set background=dark
+"colorscheme gruvbox
+colorscheme nord
+
+"mustache config for abbreviations
+let g:mustache_abbreviations = 1
 
 " lightline configuration. 
 set laststatus=2
-let g:lightline = {'colorscheme' : 'seoul256'}
+let g:lightline = {'colorscheme' : 'one'}
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX
@@ -84,19 +92,23 @@ endif
 syntax on
 "colorscheme default
 
+" Enable file type detection and do language-dependent indenting.
+filetype on
+filetype plugin on
+filetype indent on
+
 " 4 Spaces als Einrueckung
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+set ts=4
+set sw=4
+set sts=4
+set et
+
+autocmd FileType javascript setlocal ts=2 sw=2 sts=2 et
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 map <C-n> :NERDTreeToggle<CR>
-
-" Enable file type detection and do language-dependent indenting.
-filetype plugin indent on
 
 " Show line numbers
 set number
