@@ -1,21 +1,3 @@
-" A minimal vimrc for new vim users to start with.
-"
-" Referenced here: http://vimuniversity.com/samples/your-first-vimrc-should-be-nearly-empty
-"
-" Original Author:	     Bram Moolenaar <Bram@vim.org>
-" Made more minimal by:  Ben Orenstein
-" Modified by :          Ben McCormick
-" Last change:	         2014 June 8
-"
-" To use it, copy it to
-"  for Unix based systems (including OSX and Linux):  ~/.vimrc
-"  for Windows :  $VIM\_vimrc
-"
-"  If you don't understand a setting in here, just type ':h setting'.
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect
-
 set nocompatible              " be iMproved, required
 set shell=/bin/bash
 
@@ -29,9 +11,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-"Plug 'exitface/synthwave.vim'
-Plug 'itchyny/lightline.vim'
+Plug 'exitface/synthwave.vim'
 "Plug 'morhetz/gruvbox'
+"Plug 'arcticicestudio/nord-vim'
+Plug 'nightsense/cosmic_latte'
+Plug 'maralla/completor.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'elixir-editors/vim-elixir'
@@ -39,7 +24,6 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'w0rp/ale'
-Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -59,16 +43,25 @@ call plug#end()
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
-"set background=dark
-"colorscheme gruvbox
-colorscheme nord
+"completor config 
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 "mustache config for abbreviations
 let g:mustache_abbreviations = 1
 
 " lightline configuration. 
 set laststatus=2
-let g:lightline = {'colorscheme' : 'one'}
+
+if strftime('%H') >= 7 && strftime('%H') < 19
+  set background=light
+  let g:lightline = { 'colorscheme': 'cosmic_latte_light' }
+else
+  set background=dark
+  let g:lightline = { 'colorscheme': 'cosmic_latte_dark' }
+endif
+colorscheme cosmic_latte
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX
