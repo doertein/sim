@@ -58,7 +58,7 @@ if strftime('%H') >= 7 && strftime('%H') < 19
     let g:lightline = { 'colorscheme': 'cosmic_latte_light' }
 else
     set background=dark
-    colorscheme synthwave
+    colorscheme cosmic_latte
     let g:lightline = { 'colorscheme': 'cosmic_latte_dark' }
 endif
 
