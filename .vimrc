@@ -86,7 +86,6 @@ autocmd FileType javascript setlocal ts=2 sw=2 sts=2 et
 " NERDTree stuff
 map <C-n> :NERDTreeToggle<CR>
 
-inoremap - <Esc>
 """ ============
 
 " Make backspace behave in a sane manner.
