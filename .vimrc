@@ -23,12 +23,18 @@ Plug 'itchyny/lightline.vim'
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'leafgarland/typescript-vim'
 
 " functional plugins
 Plug 'maralla/completor.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'othree/html5.vim'
 
 call plug#end()
 
@@ -81,6 +87,7 @@ set et
 
 " javascript specific indenting
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2 et
+autocmd FileType typescript setlocal ts=2 sw=2 sts=2 et
 
 
 " NERDTree stuff
