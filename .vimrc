@@ -13,11 +13,10 @@ call plug#begin('~/.vim/plugged')
 
 " visual plugins
 Plug 'exitface/synthwave.vim'
-Plug 'sainnhe/vim-color-forest-night'
 Plug 'cocopon/iceberg.vim'
-Plug 'KKPMW/sacredforest-vim'
-"Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'nightsense/cosmic_latte'
+Plug 'AlessandroYorba/Sierra'
 Plug 'itchyny/lightline.vim'
 
 " syntax plugins
@@ -59,13 +58,17 @@ let g:ale_linters = {
 set laststatus=2
 
 if strftime('%H') >= 7 && strftime('%H') < 19
-    set background=light
+    set bg=light
     colorscheme cosmic_latte
-    let g:lightline = { 'colorscheme': 'cosmic_latte_light' }
+    let g:lightline = {
+                \   'colorscheme': 'cosmic_latte_light',
+                \ }
 else
-    set background=dark
+    set bg=dark
     colorscheme cosmic_latte
-    let g:lightline = { 'colorscheme': 'cosmic_latte_dark' }
+    let g:lightline = {
+                \   'colorscheme': 'cosmic_latte_dark',
+                \ }
 endif
 
 
