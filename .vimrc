@@ -13,28 +13,36 @@ call plug#begin('~/.vim/plugged')
 
 " visual plugins
 Plug 'exitface/synthwave.vim'
-Plug 'sainnhe/vim-color-forest-night'
+Plug 'sainnhe/forest-night'
 Plug 'cocopon/iceberg.vim'
 Plug 'KKPMW/sacredforest-vim'
-"Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'nightsense/cosmic_latte'
 Plug 'itchyny/lightline.vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'leafgarland/typescript-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 " functional plugins
-Plug 'maralla/completor.vim'
+Plug 'vim-test/vim-test'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'maralla/completor.vim', { 'do': 'make js' }
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'othree/html5.vim'
+Plug 'wsdjeg/vim-todo'
+Plug 'mattn/emmet-vim'
+Plug 'skammer/vim-css-color'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -53,12 +61,16 @@ let g:ale_linters = {
             \   'javascript': ['eslint'],
             \}
 
+""" ============ testing stuff ============ 
+let test#strategy = "vimterminal"
+
+
 """ ============ colorscheme and lightline ============ 
 
 " lightline and colorscheme configuration. 
 set laststatus=2
 
-if strftime('%H') >= 7 && strftime('%H') < 19
+if strftime('%H') >= 7 && strftime('%H') < 18
     set background=light
     colorscheme cosmic_latte
     let g:lightline = { 'colorscheme': 'cosmic_latte_light' }
@@ -67,7 +79,6 @@ else
     colorscheme cosmic_latte
     let g:lightline = { 'colorscheme': 'cosmic_latte_dark' }
 endif
-
 
 """ ============ syntax specific stuff ============
 
@@ -93,7 +104,17 @@ autocmd FileType typescript setlocal ts=2 sw=2 sts=2 et
 " NERDTree stuff
 map <C-n> :NERDTreeToggle<CR>
 
+" set leader to comma
+let mapleader = ","
+
+imap <M-Space> <Esc>
+nnoremap <Leader>tf :TestFile
+nnoremap <Leader>ts :TestSuite
+nnoremap <Leader>tn :TestNearest
 """ ============
+
+" ignore files for ctrlp
+set wildignore+=*/.git/*,*/node_modules/*
 
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
