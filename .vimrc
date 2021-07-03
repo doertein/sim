@@ -12,51 +12,50 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " visual plugins
-Plug 'exitface/synthwave.vim'
-Plug 'sainnhe/forest-night'
-Plug 'cocopon/iceberg.vim'
-Plug 'KKPMW/sacredforest-vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'nightsense/cosmic_latte'
+"Plug 'sainnhe/forest-night'
+"Plug 'nightsense/cosmic_latte'
+"Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'exitface/synthwave.vim'
+"Plug 'rakr/vim-one'
 Plug 'AlessandroYorba/Sierra'
+Plug 'equt/paper.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'ayu-theme/ayu-vim'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'leafgarland/typescript-vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'elzr/vim-json'
 
 " functional plugins
+"" snippets for react
+Plug 'SirVer/ultisnips'
+Plug 'mlaursen/vim-react-snippets'
+"" 
 Plug 'vim-test/vim-test'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-Plug 'maralla/completor.vim', { 'do': 'make js' }
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
-Plug 'w0rp/ale'
+"
+"" git plugins
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+"
+"" shortcut plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'othree/html5.vim'
-Plug 'wsdjeg/vim-todo'
 Plug 'mattn/emmet-vim'
-Plug 'skammer/vim-css-color'
-Plug 'airblade/vim-gitgutter'
+"
+"" completion/linting
+Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim'
 
 call plug#end()
 
 
 """ ============ plugin specific ============
 
-"completor config 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
-"mustache config for abbreviations
-let g:mustache_abbreviations = 1
+" import config for 
+runtime coc_config.vim
 
 let g:ale_linters = {
             \   'javascript': ['eslint'],
@@ -69,22 +68,36 @@ let test#strategy = "vimterminal"
 """ ============ colorscheme and lightline ============ 
 
 " lightline and colorscheme configuration. 
-set laststatus=2
 
-if strftime('%H') >= 7 && strftime('%H') < 18
-    set background=light
-    colorscheme cosmic_latte
+if strftime('%H') >= 7 && strftime('%H') < 20
+    set bg=light
+    colorscheme paper
     let g:lightline = {
-                \   'colorscheme': 'cosmic_latte_light',
+                \   'colorscheme': 'paper',
+                \    'active': {
+                \        'left': [ [ 'mode', 'paste'],
+                \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+                \    },
+                \    'component_function': {
+                \        'cocstatus': 'coc#status'
+                \    },
                 \ }
 else
     set bg=dark
-    colorscheme cosmic_latte
+    colorscheme sierra
     let g:lightline = {
-                \   'colorscheme': 'cosmic_latte_dark',
+                \   'colorscheme': 'one',
+                \    'active': {
+                \        'left': [ [ 'mode', 'paste'],
+                \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+                \    },
+                \    'component_function': {
+                \        'cocstatus': 'coc#status'
+                \    },
                 \ }
 endif
 
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 """ ============ syntax specific stuff ============
 
 " Switch syntax highlighting on
@@ -130,6 +143,8 @@ set number
 " Allow hidden buffers, don't limit to 1 file per window/split
 set hidden
 
+set t_Co=256
+
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX
 "check and use tmux's 24-bit color support
@@ -142,6 +157,6 @@ endif
 " Based on Vim patch 7.4.1770 (`guicolors` option)
 " <https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd>
 " <https://github.com/neovim/neovim/wiki/Following-HEAD#20160511>
-if (has("termguicolors"))
-    set termguicolors
-endif
+"if (has("termguicolors"))
+"    set termguicolors
+"endif
