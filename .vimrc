@@ -1,6 +1,5 @@
 set nocompatible              " be iMproved, required
 set shell=/bin/bash
-
 " vim-plug config
 " auto-installer
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -20,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'AlessandroYorba/Sierra'
 Plug 'equt/paper.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'cocopon/iceberg.vim'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
@@ -84,9 +84,9 @@ if strftime('%H') >= 7 && strftime('%H') < 20
                 \ }
 else
     set bg=dark
-    colorscheme sierra
+    colorscheme iceberg
     let g:lightline = {
-                \   'colorscheme': 'one',
+                \   'colorscheme': 'iceberg',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
                 \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
