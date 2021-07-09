@@ -47,7 +47,7 @@ Plug 'mattn/emmet-vim'
 "
 "" completion/linting
 Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 call plug#end()
 
@@ -55,7 +55,9 @@ call plug#end()
 """ ============ plugin specific ============
 
 " import config for 
-runtime coc_config.vim
+"runtime coc_config.vim
+
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html']
 
 let g:ale_linters = {
             \   'javascript': ['eslint'],
