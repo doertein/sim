@@ -11,14 +11,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " visual plugins
-"Plug 'sainnhe/forest-night'
-"Plug 'nightsense/cosmic_latte'
-"Plug 'drewtempelmeyer/palenight.vim'
-"Plug 'exitface/synthwave.vim'
-"Plug 'rakr/vim-one'
-Plug 'AlessandroYorba/Sierra'
-Plug 'equt/paper.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'sainnhe/everforest'
+Plug 'tpozzi/Sidonia'
 Plug 'cocopon/iceberg.vim'
 
 " syntax plugins
@@ -26,6 +21,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
+Plug 'watzon/vim-edge-template'
 
 " functional plugins
 "" snippets for react
@@ -46,8 +42,9 @@ Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 "
 "" completion/linting
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
 
 call plug#end()
 
@@ -57,7 +54,13 @@ call plug#end()
 " import config for 
 "runtime coc_config.vim
 
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html', 'coc-tailwindcss', 'coc-rome']
+"make coc-tsserver understandt tsx/jsx correclty
+augroup ReactFiletypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
+  autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+augroup END
 
 let g:ale_linters = {
             \   'javascript': ['eslint'],
@@ -71,11 +74,11 @@ let test#strategy = "vimterminal"
 
 " lightline and colorscheme configuration. 
 
-if strftime('%H') >= 7 && strftime('%H') < 20
+if strftime('%H') >= 7 && ( strftime('%H') < 17 )
     set bg=light
-    colorscheme paper
+    colorscheme iceberg
     let g:lightline = {
-                \   'colorscheme': 'paper',
+                \   'colorscheme': 'iceberg',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
                 \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -86,9 +89,13 @@ if strftime('%H') >= 7 && strftime('%H') < 20
                 \ }
 else
     set bg=dark
-    colorscheme iceberg
+    " let g:everforest_better_performance = 1
+    " let g:everforest_background = 'soft'
+    " colorscheme everforest
+    " colorscheme seoul256
+    colo sidonia
     let g:lightline = {
-                \   'colorscheme': 'iceberg',
+                \   'colorscheme': 'everforest',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
                 \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -119,6 +126,8 @@ set et
 " javascript specific indenting
 autocmd FileType javascript setlocal ts=2 sw=2 sts=2 et
 autocmd FileType typescript setlocal ts=2 sw=2 sts=2 et
+autocmd FileType typescriptreact setlocal ts=2 sw=2 sts=2 et
+autocmd FileType javascriptreact setlocal ts=2 sw=2 sts=2 et
 
 
 " NERDTree stuff
@@ -131,6 +140,10 @@ imap <M-Space> <Esc>
 nnoremap <Leader>tf :TestFile
 nnoremap <Leader>ts :TestSuite
 nnoremap <Leader>tn :TestNearest
+
+nnoremap <Leader>b :buffers<CR>:buffer<Space>
+let g:UltiSnipsExpandTrigger = "<C-J>"
+
 """ ============
 
 " ignore files for ctrlp
@@ -159,6 +172,6 @@ endif
 " Based on Vim patch 7.4.1770 (`guicolors` option)
 " <https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd>
 " <https://github.com/neovim/neovim/wiki/Following-HEAD#20160511>
-"if (has("termguicolors"))
-"    set termguicolors
-"endif
+if (has("termguicolors"))
+    set termguicolors
+endif
