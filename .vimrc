@@ -12,9 +12,8 @@ call plug#begin('~/.vim/plugged')
 
 " visual plugins
 Plug 'itchyny/lightline.vim'
-Plug 'sainnhe/everforest'
 Plug 'tpozzi/Sidonia'
-Plug 'cocopon/iceberg.vim'
+Plug 'rakr/vim-one'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
@@ -75,10 +74,11 @@ let test#strategy = "vimterminal"
 " lightline and colorscheme configuration. 
 
 if strftime('%H') >= 7 && ( strftime('%H') < 17 )
-    set bg=light
-    colorscheme iceberg
+    set background=light
+    colorscheme one
     let g:lightline = {
-                \   'colorscheme': 'iceberg',
+                \   'colorscheme': 'one',
+                \   'background': 'light',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
                 \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -88,14 +88,17 @@ if strftime('%H') >= 7 && ( strftime('%H') < 17 )
                 \    },
                 \ }
 else
-    set bg=dark
+    set background=dark
     " let g:everforest_better_performance = 1
-    " let g:everforest_background = 'soft'
+    " let g:everforest_background = 'hard'
     " colorscheme everforest
     " colorscheme seoul256
-    colo sidonia
+    " colo sidonia
+    " colo iceberg
+    colo one
     let g:lightline = {
-                \   'colorscheme': 'everforest',
+                \   'colorscheme': 'one',
+                \   'background': 'dark',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
                 \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -142,6 +145,9 @@ nnoremap <Leader>ts :TestSuite
 nnoremap <Leader>tn :TestNearest
 
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
+
+" source vimrc
+nnoremap <Leader>s :so ~/.vimrc<CR>
 let g:UltiSnipsExpandTrigger = "<C-J>"
 
 """ ============
