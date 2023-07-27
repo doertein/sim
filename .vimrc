@@ -13,13 +13,13 @@ call plug#begin('~/.vim/plugged')
 " visual plugins
 Plug 'itchyny/lightline.vim'
 Plug 'davidosomething/vim-colors-meh'
+Plug 'sainnhe/everforest'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
-Plug 'tpope/vim-sleuth'
 
 " functional plugins
 "" snippets for react
@@ -63,7 +63,7 @@ call plug#end()
 " import config for 
 "runtime coc_config.vim
 
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html', 'coc-tailwindcss', 'coc-rome', 'coc-tsserver']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html', 'coc-tailwindcss', 'coc-tsserver']
 
 " python provider
 let g:python3_host_prog = '/usr/bin/python3'
@@ -140,9 +140,12 @@ nnoremap <Leader>ts :TestSuite
 nnoremap <Leader>tn :TestNearest
 
 nnoremap <Leader>b :buffers<CR>:buffer<Space>
+nnoremap <Leader>s :sp<CR>
+nnoremap <Leader>v :vsp<CR>
 
+tnoremap <Leader><Esc> <C-\><C-n>
 " source vimrc
-nnoremap <Leader>s :so ~/.vimrc<CR>
+" nnoremap <Leader>s :so ~/.vimrc<CR>
 let g:UltiSnipsExpandTrigger = "<C-J>"
 
 """ ============
