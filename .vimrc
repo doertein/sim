@@ -12,15 +12,14 @@ call plug#begin('~/.vim/plugged')
 
 " visual plugins
 Plug 'itchyny/lightline.vim'
-Plug 'tpozzi/Sidonia'
-Plug 'rakr/vim-one'
+Plug 'davidosomething/vim-colors-meh'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
-Plug 'watzon/vim-edge-template'
+Plug 'tpope/vim-sleuth'
 
 " functional plugins
 "" snippets for react
@@ -44,6 +43,17 @@ Plug 'mattn/emmet-vim'
 "Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'heavenshell/vim-jsdoc', {
+            \ 'for': [
+            \ 'javascript', 
+            \ 'javascript.jsx', 
+            \ 'typescript', 
+            \ 'typescript.tsx', 
+            \ 'typescirptreact', 
+            \ 'javascriptreact'
+            \ ],
+            \ 'do': 'make install'
+            \}
 
 call plug#end()
 
@@ -53,7 +63,11 @@ call plug#end()
 " import config for 
 "runtime coc_config.vim
 
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html', 'coc-tailwindcss', 'coc-rome']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css', 'coc-html', 'coc-tailwindcss', 'coc-rome', 'coc-tsserver']
+
+" python provider
+let g:python3_host_prog = '/usr/bin/python3'
+
 "make coc-tsserver understandt tsx/jsx correclty
 augroup ReactFiletypes
   autocmd!
@@ -74,30 +88,13 @@ let test#strategy = "vimterminal"
 " lightline and colorscheme configuration. 
 
 if strftime('%H') >= 7 && ( strftime('%H') < 17 )
-    set background=light
-    colorscheme one
-    let g:lightline = {
-                \   'colorscheme': 'one',
-                \   'background': 'light',
-                \    'active': {
-                \        'left': [ [ 'mode', 'paste'],
-                \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-                \    },
-                \    'component_function': {
-                \        'cocstatus': 'coc#status'
-                \    },
-                \ }
+            colo meh
 else
-    set background=dark
-    " let g:everforest_better_performance = 1
-    " let g:everforest_background = 'hard'
-    " colorscheme everforest
-    " colorscheme seoul256
-    " colo sidonia
-    " colo iceberg
-    colo one
+            colo meh
+endif
+
     let g:lightline = {
-                \   'colorscheme': 'one',
+                \   'colorscheme': 'PaperColor',
                 \   'background': 'dark',
                 \    'active': {
                 \        'left': [ [ 'mode', 'paste'],
@@ -107,7 +104,6 @@ else
                 \        'cocstatus': 'coc#status'
                 \    },
                 \ }
-endif
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 """ ============ syntax specific stuff ============
@@ -116,21 +112,20 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 syntax on
 
 " Enable file type detection and do language-dependent indenting.
-filetype on
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " 4 Spaces als Einrueckung
 set ts=4
 set sw=4
 set sts=4
-set et
 
 " javascript specific indenting
-autocmd FileType javascript setlocal ts=2 sw=2 sts=2 et
-autocmd FileType typescript setlocal ts=2 sw=2 sts=2 et
-autocmd FileType typescriptreact setlocal ts=2 sw=2 sts=2 et
-autocmd FileType javascriptreact setlocal ts=2 sw=2 sts=2 et
+autocmd FileType javascript setlocal ts=2 sw=2 sts=2 
+autocmd FileType typescript setlocal ts=2 sw=2 sts=2
+autocmd FileType typescriptreact setlocal ts=2 sw=2 sts=2
+autocmd FileType javascriptreact setlocal ts=2 sw=2 sts=2
+autocmd FileType css setlocal ts=2 sw=2 sts=2
+autocmd FileType python setlocal ts=4 sw=4 sts=4
 
 
 " NERDTree stuff
