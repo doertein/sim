@@ -47,6 +47,8 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 
 
 #wm settings
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
 gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Super><Shift>1']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Super><Shift>2']"

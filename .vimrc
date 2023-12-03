@@ -12,14 +12,17 @@ call plug#begin('~/.vim/plugged')
 
 " visual plugins
 Plug 'itchyny/lightline.vim'
+Plug 'nyoom-engineering/oxocarbon.nvim'
 Plug 'davidosomething/vim-colors-meh'
-Plug 'sainnhe/everforest'
+Plug 'morhetz/gruvbox'
+Plug 'tjdevries/colorbuddy.nvim'
 
 " syntax plugins
 Plug 'sheerun/vim-polyglot'
 Plug 'leafgarland/typescript-vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " functional plugins
 "" snippets for react
@@ -28,7 +31,8 @@ Plug 'mlaursen/vim-react-snippets'
 "" 
 Plug 'vim-test/vim-test'
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 "
 "" git plugins
 Plug 'tpope/vim-fugitive'
@@ -43,17 +47,7 @@ Plug 'mattn/emmet-vim'
 "Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
-Plug 'heavenshell/vim-jsdoc', {
-            \ 'for': [
-            \ 'javascript', 
-            \ 'javascript.jsx', 
-            \ 'typescript', 
-            \ 'typescript.tsx', 
-            \ 'typescirptreact', 
-            \ 'javascriptreact'
-            \ ],
-            \ 'do': 'make install'
-            \}
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 call plug#end()
 
@@ -88,22 +82,28 @@ let test#strategy = "vimterminal"
 " lightline and colorscheme configuration. 
 
 if strftime('%H') >= 7 && ( strftime('%H') < 17 )
-            colo meh
+	set bg=light
+	let g:gruvbox_contrast_light='soft'
+	colo gruvbox
 else
-            colo meh
+	set bg=dark
+	let g:gruvbox_contrast_light='soft'
+	colo gruvbox
 endif
 
-    let g:lightline = {
-                \   'colorscheme': 'PaperColor',
-                \   'background': 'dark',
-                \    'active': {
-                \        'left': [ [ 'mode', 'paste'],
-                \                    [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-                \    },
-                \    'component_function': {
-                \        'cocstatus': 'coc#status'
-                \    },
-                \ }
+let g:lightline = {
+			\   'colorscheme': 'gruvbox',
+			\   'background': 'dark',
+			\    'active': {
+			\        'left': [	
+			\					[ 'mode', 'paste'],
+			\                   [ 'cocstatus', 'readonly', 'relativepath', 'modified' ],
+			\				],
+			\    },
+			\    'component_function': {
+			\        'cocstatus': 'coc#status'
+			\    },
+			\ }
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 """ ============ syntax specific stuff ============
@@ -143,9 +143,14 @@ nnoremap <Leader>b :buffers<CR>:buffer<Space>
 nnoremap <Leader>s :sp<CR>
 nnoremap <Leader>v :vsp<CR>
 
+nmap <silent> <Leader>d <Plug>(doge-generate)
+
 tnoremap <Leader><Esc> <C-\><C-n>
 " source vimrc
-" nnoremap <Leader>s :so ~/.vimrc<CR>
+nnoremap <Leader>z :so ~/.vimrc<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :!zeal "<cword>"&<CR><CR>
+
 let g:UltiSnipsExpandTrigger = "<C-J>"
 
 """ ============
