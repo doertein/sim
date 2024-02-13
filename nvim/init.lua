@@ -33,10 +33,16 @@ local plugins = {
 	{ "miikanissi/modus-themes.nvim", priority = 1000 },
 
 	-- Syntax plugins
+	'prettier/vim-prettier',
 	'sheerun/vim-polyglot',
 	'leafgarland/typescript-vim',
 	'MaxMEllon/vim-jsx-pretty',
 	'elzr/vim-json',
+	{
+		'stevearc/conform.nvim',
+		opts = {},
+	},
+	'mfussenegger/nvim-lint',
 	{'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
 
 	-- Functional plugins
@@ -73,6 +79,36 @@ vim.cmd [[colo solarized8]]
 require('lualine').setup {
 	options = { theme = 'auto' }
 }
+
+require("conform").setup({
+		format_on_save = {
+			timeout_ms = 500,
+			lsp_fallback = true,
+		},
+		formatters_by_ft = {
+			-- Conform will run multiple formatters sequentially
+			python = { "isort", "black" },
+			-- Use a sub-list to run only the first available formatter
+			javascript = { { "prettierd", "prettier" } },
+			typescript = { { "prettierd", "prettier" } },
+			typescriptreact = { { "prettierd", "prettier" } },
+			javascriptreact = { { "prettierd", "prettier" } },
+			html = { { "prettierd", "prettier" } },
+			css = { { "prettierd", "prettier" } },
+		},
+	})
+
+require('lint').linters_by_ft = {
+	python = {'pylint',},
+	javascript = {'eslint',},
+	typescript = {'eslint',},
+}
+
+-- vim.api.nvim_create_autocmd({"InsertLeave"}, {
+-- 	callback = function()
+-- 		require("lint").try_lint()
+-- 	end
+-- })
 
 -- Configure global Coc extensions
 vim.g.coc_global_extensions = {
